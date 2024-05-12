@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Summary } from '../types';
 
 export default function SummaryForm({
@@ -19,22 +19,35 @@ export default function SummaryForm({
 }) {
   const [summary, setSummary] = useState('');
   const [category, setCategory] = useState('');
-  const [description, setDiscription] = useState('');
-  const [value, setValue] = useState('');
-  const [unit, setUnit] = useState<number | string>('');
+  const [description, setDescription] = useState('');
+  const [value, setValue] = useState<number>(0);
+  const [unit, setUnit] = useState<string>('');
+  // Define the ref with a specific type
+  const idRef = useRef<number>(0);
+
+  // Example function to increment the ref's current value
+  const incrementId = () => {
+    idRef.current += 1;
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (selectedDate) {
       addSummary({
+        id: idRef.current,
         date: selectedDate,
-        text: summary,
-        category,
-        units: Number(unit),
+        title: summary,
+        description: description,
+        category: category,
+        unit: unit,
+        value: value,
       });
       setSummary('');
-      setUnit('');
+      setDescription('');
       setCategory('');
+      setValue(0);
+      setUnit('');
+      incrementId();
     }
   };
 
@@ -81,7 +94,7 @@ export default function SummaryForm({
           label='내용'
           variant='outlined'
           value={description}
-          onChange={(e) => setDiscription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}
           fullWidth
           sx={{
             zIndex: 0,
@@ -102,7 +115,7 @@ export default function SummaryForm({
             label='달성도'
             variant='outlined'
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue(parseInt(e.target.value))}
             fullWidth
             type='number'
           />

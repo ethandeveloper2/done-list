@@ -1,7 +1,10 @@
 
 export interface Summary {
+  id: number;
   date: Date;
-  text: string;
   category: string;
-  units: number;
+  title: string;
+  description: string;
+  unit: string;
+  value: number;
 }

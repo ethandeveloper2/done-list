@@ -21,6 +21,17 @@ export default function Home() {
       summary.date.toLocaleDateString() === selectedDate.toLocaleDateString()
   );
 
+  const deleteSummary = (id: number) => {
+    const updatedSummary = summaries.filter((item) => {
+      if (item.id != id) {
+        return item;
+      }
+    })
+    
+    setSummaries(updatedSummary)
+
+  }
+
   return (
     <Container
       maxWidth='md'
@@ -43,7 +54,7 @@ export default function Home() {
             selectedDate={selectedDate}
           />
         </div>
-        <SummaryList summaries={todaySummaries} />
+        <SummaryList summaries={todaySummaries} deleteSummary={deleteSummary} />
       </div>
     </Container>
   );
