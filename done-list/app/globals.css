@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
+
+/* Assuming each file corresponds to different font weights or styles */
+
+/* @font-face {
+  font-family: 'NanumSquareNeo-Variable';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+/* Assuming each file corresponds to different font weights or styles */
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeo-Variable.woff2') format('woff2');
+  font-weight: 400; /* Adjust according to actual weight if known */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeoTTF-aLt.woff2') format('woff2');
+  font-weight: 300; /* Example for lighter weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeoTTF-bRg.woff2') format('woff2');
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeoTTF-cBd.woff2') format('woff2');
+  font-weight: 700; /* Bold weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeoTTF-dEb.woff2') format('woff2');
+  font-weight: 800; /* Extra-bold weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url('/fonts/woff2/NanumSquareNeoTTF-eHv.woff2') format('woff2');
+  font-weight: 900; /* Heavy weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@layer base {
+	html {
+		font-family: "NanumSquareNeo", system-ui, sans-serif;
+	}
+}
+
+html, body, body * {
+}
+
