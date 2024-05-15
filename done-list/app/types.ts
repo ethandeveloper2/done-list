@@ -4,7 +4,7 @@ export interface Summary {
   date: Date;
   category: string;
   title: string;
-  description: string;
+  description?: string;
   unit: string;
   value: number;
 }

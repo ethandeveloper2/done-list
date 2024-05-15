@@ -1,17 +1,28 @@
 'use client';
-import { Roboto } from 'next/font/google';
 import { createTheme } from '@mui/material/styles';
+declare module '@mui/material/styles' {
+  interface PaletteColor {
+    salmon?: string;
+    gray?: string;
+  }
 
-const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-});
+  interface SimplePaletteColorOptions {
+    salmon?: string;
+    gray?: string;
+  }
+}
 
-const theme = createTheme({
+declare module '@mui/material/SvgIcon' {
+  interface SvgIconPropsColorOverrides {
+    salmon: true;
+    gray: true;
+  }
+}
+
+let theme = createTheme({
   palette: {
     primary: {
-      main: '#0fa3b1'
+      main: '#0fa3b1',
     },
   },
   typography: {
@@ -28,6 +39,24 @@ const theme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+  },
+});
+
+theme = createTheme(theme, {
+  // Custom colors created with augmentColor go here
+  palette: {
+    salmon: theme.palette.augmentColor({
+      color: {
+        main: '#FF5733',
+      },
+      name: 'salmon',
+    }),
+    gray: theme.palette.augmentColor({
+      color: {
+        main: '#B8B8B8',
+      },
+      name: 'gray',
+    }),
   },
 });
 

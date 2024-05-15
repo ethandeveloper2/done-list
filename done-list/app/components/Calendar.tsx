@@ -2,13 +2,15 @@ import React, { FC, useState } from 'react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { format } from 'date-fns';
+import { Summary } from '../types';
 
 interface Props {
   selectedDate: Date;
   setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
+  summaries: Summary[];
 }
 
-const Calendar: FC<Props> = ({ selectedDate, setSelectedDate }) => {
+const Calendar: FC<Props> = ({ selectedDate, setSelectedDate, summaries }) => {
   // Today's date details
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth()); // Month is 0-indexed
@@ -71,7 +73,8 @@ const Calendar: FC<Props> = ({ selectedDate, setSelectedDate }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: day === '일' ? 'red' : day === '토' ? 'blue' : 'black'
+                    color:
+                      day === '일' ? 'red' : day === '토' ? 'blue' : 'black',
                     // background:
                     //   selectedDate &&
                     //   selectedDate.toDateString() === day.toDateString()
@@ -93,6 +96,13 @@ const Calendar: FC<Props> = ({ selectedDate, setSelectedDate }) => {
                 style={{ display: 'flex', justifyContent: 'center' }}
               >
                 {week.map((day, index) => {
+                  let doneCount = summaries.filter(
+                    (item) =>
+                      item.date.getFullYear() === day.getFullYear() &&
+                      item.date.getMonth() === day.getMonth() &&
+                      item.date.getDate() === day.getDate()
+                  ).length;
+
                   return (
                     <button
                       key={`${index}_${day}`}
@@ -108,6 +118,7 @@ const Calendar: FC<Props> = ({ selectedDate, setSelectedDate }) => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        position: 'relative',
                         background:
                           selectedDate &&
                           selectedDate.toDateString() === day.toDateString()
@@ -118,6 +129,11 @@ const Calendar: FC<Props> = ({ selectedDate, setSelectedDate }) => {
                       }}
                     >
                       {day.getDate()}
+                      {doneCount > 0 && (
+                        <div className='absolute top-[-5px] right-[-5px] rounded-full bg-blue-100 w-[20px] h-[20px] items-center flex justify-center text-xs text-blue-500'>
+                          {doneCount}
+                        </div>
+                      )}
                     </button>
                   );
                 })}
