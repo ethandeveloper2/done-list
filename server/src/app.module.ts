@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DoneListsModule } from './done-lists/done-lists.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { DoneCategoriesModule } from './done_categories/done_categories.module';
+import { UsersModule } from './users/users.module';
+import { CategoriesModule } from './categories/categories.module';
+import { UnitsModule } from './units/units.module';
+import { TagsModule } from './tags/tags.module';
+import { DoneItemsModule } from './done-items/done-items.module';
 
 @Module({
   imports: [
@@ -26,8 +29,11 @@ import { DoneCategoriesModule } from './done_categories/done_categories.module';
       migrationsTableName: 'typeorm_migrations',
       logging: true,
     }),
-    DoneListsModule,
-    DoneCategoriesModule,
+    UsersModule,
+    CategoriesModule,
+    UnitsModule,
+    TagsModule,
+    DoneItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
