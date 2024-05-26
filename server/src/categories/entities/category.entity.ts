@@ -1,8 +1,21 @@
-import { BaseEntity } from 'common/base.entity';
-import { Entity, Column } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+@Entity('categories')
+export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-@Entity()
-export class Category extends BaseEntity {
-  @Column({ unique: true })
-  category_name: string;
+  @Column({ type: 'varchar', length: 50 })
+  name: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updated_at: Date;
 }

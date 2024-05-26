@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { Category } from './entities/category.entity';
 
@@ -22,7 +30,10 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() category: Partial<Category>): Promise<Category> {
+  update(
+    @Param('id') id: string,
+    @Body() category: Partial<Category>,
+  ): Promise<Category> {
     return this.categoriesService.update(+id, category);
   }
 

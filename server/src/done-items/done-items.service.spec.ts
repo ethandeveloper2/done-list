@@ -37,9 +37,13 @@ describe('DoneItemsService', () => {
     }).compile();
 
     service = module.get<DoneItemsService>(DoneItemsService);
-    doneItemsRepository = module.get<Repository<DoneItem>>(getRepositoryToken(DoneItem));
+    doneItemsRepository = module.get<Repository<DoneItem>>(
+      getRepositoryToken(DoneItem),
+    );
     usersRepository = module.get<Repository<User>>(getRepositoryToken(User));
-    categoriesRepository = module.get<Repository<Category>>(getRepositoryToken(Category));
+    categoriesRepository = module.get<Repository<Category>>(
+      getRepositoryToken(Category),
+    );
     unitsRepository = module.get<Repository<Unit>>(getRepositoryToken(Unit));
     tagsRepository = module.get<Repository<Tag>>(getRepositoryToken(Tag));
   });

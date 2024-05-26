@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
 import { CategoriesModule } from './categories/categories.module';
-import { UnitsModule } from './units/units.module';
-import { TagsModule } from './tags/tags.module';
 import { DoneItemsModule } from './done-items/done-items.module';
-
+import { TagsModule } from './tags/tags.module';
+import { UnitsModule } from './units/units.module';
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,8 +24,8 @@ import { DoneItemsModule } from './done-items/done-items.module';
       synchronize: true,
       bigNumberStrings: false,
       migrationsRun: false,
-      migrations: [__dirname + '/migrations/*.ts'],
-      migrationsTableName: 'typeorm_migrations',
+      migrations: [__dirname + '/**/migrations/*.ts'],
+      migrationsTableName: 'migrations',
       logging: true,
     }),
     UsersModule,

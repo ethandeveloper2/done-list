@@ -2,7 +2,7 @@
 
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Container } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Calendar from './components/Calendar';
 import SummaryList from './components/SummaryList';
 import DefaultModal from './components/modals/DefaultModal';
@@ -17,13 +17,85 @@ export default function Home() {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const idRef = useRef<number>(0);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:9100/api/done-items');
+      const data = await res.json();
+      console.log(data)
+      // setData(data);
+      // setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:9100/api/done-items');
+      const data = await res.json();
+      console.log(data)
+      // setData(data);
+      // setLoading(false);
+    };
+
+    const fetchUnit = async () => {
+      const res = await fetch('http://localhost:9100/api/units');
+      const data = await res.json();
+      console.log(data)
+    }
+
+    fetchData();
+    fetchUnit();
+  }, []);
+
+  async function createDoneItem(doneItem : any) {
+    const response = await fetch('http://localhost:9100/api/done-items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(doneItem),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Error creating DoneItem: ${errorData.message}`);
+    }
+  
+    return response.json();
+  }
+  
+  // 사용 예시:
+  const newDoneItem = {
+    user_id: 1,
+    category_id: 1,
+    title: 'test title',
+    description: 'Complete the project documentation',
+    date: new Date(),
+    unit_id: 1,
+    value: 3.5,
+    tags: [1, 2], // 예를 들어, 태그 ID가 1과 2인 태그
+  };
+  
+
+
   const todaySummaries = summaries.filter(
     (summary) =>
       summary.date.toLocaleDateString() === selectedDate.toLocaleDateString()
   );
 
   const addSummary = (summary: Summary) => {
+    const add = async () => {
+      const res = await fetch('http://localhost:9100/api/done-items');
+    }
     setSummaries([...summaries, summary]);
+    createDoneItem(newDoneItem)
+    .then((createdItem) => {
+      console.log('Created DoneItem:', createdItem);
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
+    });
   };
 
   const deleteSummary = (id: number) => {

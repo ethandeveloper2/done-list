@@ -1,8 +1,22 @@
-import { Entity, Column } from 'typeorm';
-import { BaseEntity } from 'common/base.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
-export class Tag extends BaseEntity {
-  @Column({ unique: true })
-  tag_name: string;
+@Entity('tags')
+export class Tag {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true, type: 'varchar', length: 50 })
+  name: string;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updated_at: Date;
 }

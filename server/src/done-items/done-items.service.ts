@@ -26,14 +26,12 @@ export class DoneItemsService {
 
   findAll(): Promise<DoneItem[]> {
     return this.doneItemsRepository.find({
-      where: { deleted_at: null },
       relations: ['user', 'category', 'unit', 'tags'],
     });
   }
 
   findOne(id: number): Promise<DoneItem> {
     return this.doneItemsRepository.findOne({
-      where: { id, deleted_at: null },
       relations: ['user', 'category', 'unit', 'tags'],
     });
   }
@@ -46,7 +44,11 @@ export class DoneItemsService {
       where: { id: category_id },
     });
     const unit = await this.unitsRepository.findOne({ where: { id: unit_id } });
-    const tagEntities = tags ? await this.tagsRepository.find({ where: tags.map(tag => ({ id: tag })) }) : [];
+    const tagEntities = tags
+      ? await this.tagsRepository.find({
+          where: tags.map((tag) => ({ id: tag })),
+        })
+      : [];
 
     const doneItem = this.doneItemsRepository.create({
       ...rest,
@@ -59,9 +61,9 @@ export class DoneItemsService {
     return this.doneItemsRepository.save(doneItem);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.doneItemsRepository.update(id, { deleted_at: new Date() });
-  }
+  // async remove(id: number): Promise<void> {
+  //   await this.doneItemsRepository.update(id, { deleted_at: new Date() });
+  // }
 
   async update(
     id: number,
@@ -87,7 +89,9 @@ export class DoneItemsService {
       });
     }
     if (tags !== undefined) {
-      updateData.tags = await this.tagsRepository.find({ where: tags.map(tag => ({ id: tag })) });
+      updateData.tags = await this.tagsRepository.find({
+        where: tags.map((tag) => ({ id: tag })),
+      });
     }
 
     await this.doneItemsRepository.update(id, updateData);

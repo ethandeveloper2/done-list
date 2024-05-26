@@ -1,8 +1,16 @@
-import { Entity, Column } from 'typeorm';
-import { BaseEntity } from 'common/base.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export class Unit extends BaseEntity {
-  @Column({ unique: true })
-  unit_name: string;
+@Entity('units')
+export class Unit {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true, type: 'varchar', length: 50 })
+  name: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  korean_name: string;
+
+  @Column({ type: 'varchar', length: 50 })
+  symbol: string;
 }
